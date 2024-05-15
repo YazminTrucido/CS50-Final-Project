@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Iniciar sesión
+{% endblock %}
+
+{% block main %}
+
+<h2>Iniciar sesión</h2>
+<h5 class="text-secondary">Empleados</h5>
+<br>
+
+<form action="/login" method="post">
+    <div class="mb-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username"
+            placeholder="Usuario" type="text">
+    </div>
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Contraseña"
+            type="password" aria-describedby="passwordHelp">
+    </div>
+    <div class="mb-2">
+        <button class="btn btn-primary" type="submit">Ingresar</button>
+    </div>
+    <small class="text-muted mb-5">Por soporte consulte al Administrador.</small>
+</form>
+
+{% endblock %}

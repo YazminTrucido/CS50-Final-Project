@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Perfil
+{% endblock %}
+
+{% block main %}
+
+<h3>Perfil</h3>
+<p>Consulte o modifique sus datos</p>
+
+<div class="card mt-4 mx-auto" style="width: 80%;">
+    <div class="card-body shadow-lg p-3 bg-body rounded">
+        <form class="text-start align-items-start" action="/profile" method="post">
+            <div class="form-group mb-2">
+                <label for="username">Nombre de usuario</label>
+                <output type="text" class="form-control" id="username" name="username" disabled>{{ session["user_name"]
+                    }}</output>
+            </div>
+            <div class="form-group mb-2">
+                <label for="phone">Celular</label>
+                <output type="text" class="form-control" id="phone" name="phone" disabled>{{ session["phone"]
+                    }}</output>
+            </div>
+            <div class="form-group mb-2">
+                <label for="oldPssw">Contraseña anterior</label>
+                <input type="password" class="form-control" id="oldPssw" name="oldPssw"
+                    placeholder="Contraseña anterior" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="newPssw">Contraseña nueva</label>
+                <input type="password" class="form-control" id="newPssw" name="newPssw" placeholder="Contraseña nueva"
+                    pattern=".{8,}" title="La contraseña debe contener 8 o más caracteres" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="confirm">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="confirm" name="confirm"
+                    placeholder="Confirmar contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+            <button type="reset" class="btn btn-danger mt-2">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Inventario
+{% endblock %}
+
+{% block main %}
+
+<h3>Inventario</h3>
+<p>Ingreso y gestión de inventario</p>
+
+<div class="card mt-4 mx-auto" style="width: 80%;">
+    <div class="card-body shadow-lg p-3 bg-body rounded overflow-auto">
+        <table class="table" id="consultas">
+            <thead>
+                <tr>
+                    <th scope="col">Artículo</th>
+                    <th scope="col">Última actualización</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Notas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <th scope="col">{{ row.name }}</th>
+                    <td scope="col">{{ row.lastModifiedDate }}</td>
+                    <td scope="col">{{ row.quantity }}</td>
+                    <td scope="col">{{ row.notes }}</td>
+                    <td scope="col"><button class="btn btn-primary" onclick="handleModify(this)">Modificar</button>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn btn-success" onclick="handleAdd()">Añadir artículo</button>
+    </div>
+</div>
+
+<div class="card mt-4 mx-auto d-none" id="addContainer" style="width: 80%;" id="addContainer">
+    <div class="card-body shadow-lg p-3 bg-body rounded">
+        <h5 class="mb-4 text-center">Añadir artículo</h5>
+
+        <form class="text-start align-items-start mt-4 mb-2 text-start" action="/inventory" method="post">
+            <!-- Product data -->
+            <div class="form-group row">
+                <div class="mb-2 col-md-6">
+                    <label for="nameAdd">Artículo</label>
+                    <input type="text" class="form-control" id="nameAdd" name="nameAdd" required>
+                </div>
+                <div class="mb-2 col-md-6">
+                    <label for="quantAdd">Cantidad</label>
+                    <input type="number" class="form-control" id="quantAdd" name="quantAdd" required>
+                </div>
+            </div>
+            <div class="form-group mt-4">
+                <h6 for="notesAdd">Notas</h6>
+                <textarea class="form-control" id="notesAdd" name="notesAdd"
+                    pleaceholder="Puede introducir notas aquí"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Añadir a inventario</button>
+            <button type="reset" class="btn btn-danger mt-2" onclick="handleCancelForm()">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-4 mx-auto d-none" id="artContainer" style="width: 80%;">
+    <div class="card-body shadow-lg p-3 bg-body rounded">
+        <h5 class="mb-4 text-center">Modificar artículo</h5>
+
+        <form class="text-start align-items-start mt-4 mb-2 text-start" action="/inventory" method="post">
+            <!-- Product data -->
+            <div class="form-group row">
+                <div class="mb-2 col-md-6">
+                    <label for="nameMod">Artículo</label>
+                    <input type="text" class="form-control" id="nameMod" name="nameMod" readonly>
+                </div>
+                <div class="mb-2 col-md-6">
+                    <label for="quantMod">Cantidad</label>
+                    <input type="number" class="form-control" id="quantMod" name="quantMod" onchange="handleChange()">
+                </div>
+            </div>
+            <div class="form-group mt-4">
+                <h6 for="notesMod">Notas</h6>
+                <textarea class="form-control" id="notesMod" name="notesMod" onchange="handleChange()"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2" id="submitBtn" disabled>Actualizar</button>
+            <button type="reset" class="btn btn-danger mt-2" onclick="handleCancelForm()">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function handleChange() {
+        document.getElementById("submitBtn").disabled = false;
+    }
+
+    function handleAdd() {
+        document.getElementById("addContainer").classList.remove('d-none');
+        document.getElementById("artContainer").classList.add('d-none');
+    }
+
+    function handleModify(button) {
+        const name = button.parentNode.parentNode.cells[0].textContent;
+        const quant = button.parentNode.parentNode.cells[2].textContent;
+        const notes = button.parentNode.parentNode.cells[3].textContent;
+
+        document.getElementById("nameMod").value = name;
+        document.getElementById("quantMod").value = quant;
+        document.getElementById("notesMod").value = notes;
+
+        document.getElementById("artContainer").classList.remove('d-none');
+        document.getElementById("addContainer").classList.add('d-none');
+    }
+
+    function handleCancelForm() {
+        document.getElementById("artContainer").classList.add('d-none');
+        document.getElementById("addContainer").classList.add('d-none');
+    }
+</script>
+
+{% endblock %}

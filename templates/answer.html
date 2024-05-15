@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Consultas
+{% endblock %}
+
+{% block main %}
+
+<h3>Consultas</h3>
+<p>Ver y responder consultas</p>
+
+<div class="card mt-4 mx-auto" style="width: 80%;">
+    <div class="card-body shadow-lg p-3 bg-body rounded overflow-auto">
+        <table class="table" id="consultas">
+            <thead>
+                <tr>
+                    <th scope="col">Fecha de ingreso</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Tipo de Consulta</th>
+                    <th scope="col">Consulta</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    <th scope="col">{{ row.startDate }}</th>
+                    <td scope="col">{{ row.name }}</td>
+                    <td scope="col">{{ row.email }}</td>
+                    <td scope="col">{{ row.phone }}</td>
+                    <td scope="col">{{ row.type }}</td>
+                    <td scope="col">{{ row.text }}</td>
+                    <td scope="col">{{ row.status }}</td>
+                    <td scope="col"><button class="btn btn-primary" onclick="handleDetail(this)">Detalle</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card mt-4 mx-auto d-none" id="answerContainer" style="width: 80%;">
+    <div class="card-body shadow-lg p-3 bg-body rounded">
+        <h5 class="mb-4 text-center">Detalle de consulta</h5>
+
+        <form class="text-start align-items-start mt-4 mb-2 text-start" action="/answer" method="post" id="answerForm">
+            <!-- Ask data -->
+            <div class="form-group row">
+                <div class="mb-2 col-md-6">
+                    <label for="name">Nombre y apellido</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" readonly>
+                </div>
+                <div class="mb-2 col-md-6">
+                    <label for="phone">Celular</label>
+                    <input type="text" class="form-control" id="phone" name="phone" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="mb-2 col-md-6">
+                    <label for="startDate">Fecha de ingreso</label>
+                    <input type="text" class="form-control" id="startDate" name="startDate" readonly>
+                </div>
+                <div class="mb-2 col-md-6">
+                    <label for="status">Estado</label>
+                    <input type="text" class="form-control" id="status" name="status" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="mb-2 col-md-6">
+                    <label for="type">Tipo de consulta</label>
+                    <input type="text" class="form-control" id="type" name="type" readonly>
+                </div>
+                <div class="mb-2 col-md-6">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" readonly>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="ask">Consulta</label>
+                <input type="text" class="form-control" id="ask" name="ask" readonly>
+            </div>
+
+            <!-- Answer form -->
+            <div class="form-group mt-4">
+                <h6 for="answer">Responder</h6>
+                <textarea class="form-control" id="answer" name="answer" placeholder="Escriba la respuesta aquí"
+                    required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+            <button type="reset" class="btn btn-danger mt-2" onclick="handleCancelForm()">Cancelar</button>
+        </form>
+
+        <!-- +Info -->
+        <small class="text-muted">Por mayor acceso y gestión consulte al Administrador.</small>
+    </div>
+</div>
+</div>
+
+<script>
+    function handleDetail(button) {
+        const startDate = button.parentNode.parentNode.cells[0].textContent;
+        const name = button.parentNode.parentNode.cells[1].textContent;
+        const email = button.parentNode.parentNode.cells[2].textContent;
+        const phone = button.parentNode.parentNode.cells[3].textContent;
+        const type = button.parentNode.parentNode.cells[4].textContent;
+        const ask = button.parentNode.parentNode.cells[5].textContent;
+        const status = button.parentNode.parentNode.cells[6].textContent;
+
+        document.getElementById("startDate").value = startDate;
+        document.getElementById("nombre").value = name;
+        document.getElementById("email").value = email;
+        document.getElementById("phone").value = phone;
+        document.getElementById("type").value = type;
+        document.getElementById("ask").value = ask;
+        document.getElementById("status").value = status;
+
+        document.getElementById("answerContainer").classList.remove('d-none');
+    }
+
+    function handleCancelForm() {
+        document.getElementById('answerContainer').classList.add('d-none');
+    }
+</script>
+
+{% endblock %}

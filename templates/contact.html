@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Contacto
+{% endblock %}
+
+{% block main %}
+<h3>Contactanos</h3>
+<p>Complete el formulario de consulta</p>
+
+<div class="card mt-4 mx-auto mb-5" style="width: 80%;">
+    <div class="card-body shadow-lg p-3 bg-body rounded">
+        <form class="text-start align-items-start" action="/contact" method="post">
+            <div class="form-group mb-2">
+                <label for="name">Nombre y apellido</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Proporcione un nombre"
+                    required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="email">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Proporcione un correo"
+                    required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="phone">Celular</label>
+                <input type="number" class="form-control" id="phone" name="phone" aria-describedby="phoneHelp"
+                    placeholder="Proporcione un celular" required>
+                <small id="phoneHelp" class="form-text text-muted">No compartiremos sus datos con terceros.</small>
+            </div>
+            <div class="form-group mb-2">
+                <label for="type">Tipo de consulta</label>
+                <select class="form-select" id="type" name="type" aria-label="Tipo de consulta" required>
+                    <option selected disabled>---</option>
+                    <option value="Catering Básico">Catering Básico</option>
+                    <option value="Catering Premium">Catering Premium</option>
+                    <option value="Catering Personalizado">Catering Personalizado</option>
+                    <option value="Servicios Independientes">Servicios Independientes</option>
+                    <option value="Otra">Otra</option>
+                </select>
+            </div>
+            <div class="form-group mb-2">
+                <label for="ask">Consulta</label>
+                <textarea class="form-control" id="ask" name="ask" placeholder="Escriba su consulta aquí"
+                    required></textarea>
+            </div>
+            <div class="form-group form-check mb-2">
+                <input type="checkbox" class="form-check-input" id="check" required>
+                <label class="form-check-label" for="check">Acepto recibir mensajes en modo de respuesta</label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    window.onload = () => {
+        var typeValue = sessionStorage.getItem("type"); //get type value
+        const types = document.getElementById('type').options;
+
+        for (let i = 0; i < types.length; i++) {
+            if (types[i].value == typeValue) {
+                document.getElementById('type').getElementsByTagName('option')[i].selected = 'selected';
+                document.getElementById("type").focus();
+            }
+        }
+
+        sessionStorage.clear();
+    }
+</script>
+
+{% endblock %}

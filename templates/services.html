@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Servicios
+{% endblock %}
+
+{% block main %}
+<!-- redirect to contact with card value-->
+
+<h3>Servicios</h3>
+<p>Conozca y consulte los servicios que ofrecemos</p>
+
+<div class="my-5">
+  <div class="card mx-auto shadow-lg p-1 bg-body rounded" style="width: 50%;">
+    <img src="/static/pexels-goumbik-306046.jpg" class="card-img-top " alt="imagen 1">
+    <div class="card-body">
+      <h5 class="card-title">Catering Básico</h5>
+      <p class="card-text">Platos, tragos y bebidas seleccionados.</p>
+      <a href="/contact" class="btn btn-primary" id="Catering Básico">Más info.</a>
+    </div>
+  </div>
+
+  <div class="card mx-auto mt-4 shadow-lg p-1 bg-body rounded" style="width: 50%;">
+    <img src="/static/pexels-chasse-sauvage-2308540-6793461.jpg" class="card-img-top" alt="imagen 2">
+    <div class="card-body">
+      <h5 class="card-title">Catering Premium</h5>
+      <p class="card-text">Amplia carta de platos, tragos y bebidas.</p>
+      <a href="/contact" class="btn btn-primary" id="Catering Premium">Más info.</a>
+    </div>
+  </div>
+
+  <div class="card mx-auto mt-4 shadow-lg p-1 bg-body rounded" style="width: 50%;">
+    <img src="/static/pexels-pietrozj-671956.jpg" class="card-img-top" alt="imagen 3">
+    <div class="card-body">
+      <h5 class="card-title">Catering Personalizado</h5>
+      <p class="card-text">Platos, tragos y bebidas personalizados.</p>
+      <a href="/contact" class="btn btn-primary" id="Catering Personalizado">Más info.</a>
+    </div>
+  </div>
+
+  <div class="card mx-auto mt-4 shadow-lg p-1 bg-body rounded" style="width: 50%;">
+    <img src="/static/pexels-olly-3756623.jpg" class="card-img-top" alt="imagen 4">
+    <div class="card-body">
+      <h5 class="card-title">Servicios Independientes</h5>
+      <p class="card-text">Platos, tragos o bebidas como servicio particular.</p>
+      <a href="/contact" class="btn btn-primary" id="Servicios Independientes">Más info.</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  window.onclick = event => {
+    var type = event.target.id; //get elem value
+    sessionStorage.setItem("type", type); //stores data only for the session
+  }
+</script>
+
+{% endblock %}

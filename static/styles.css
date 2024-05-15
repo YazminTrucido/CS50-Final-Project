@@ -1,0 +1,20 @@
+a:hover {
+    color: #04cbeb;
+}
+
+.nav-item:last-child .dropdown-menu {
+    right: 0;
+    left: initial;
+}
+
+.index-container {
+    padding: 20%;
+    color: white;
+    text-shadow: 2px 2px 4px black;
+}
+
+.index-section {
+    background-image: url('/static/pexels-chasse-sauvage-2308540-6793461.jpg');
+    background-size: cover;
+    opacity: 0.9;
+}
